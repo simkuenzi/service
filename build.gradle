@@ -66,8 +66,13 @@ publishing {
     }
 }
 
-closeAndReleaseRepository.mustRunAfter uploadArchives
+nexusStaging {
+    username = mavenUser
+    password = mavenPassword
+}
+
+closeAndReleaseRepository.mustRunAfter = [publish]
 
 release {
-    buildTasks = ['publish']
+    buildTasks = ['publish', 'closeAndReleaseRepository']
 }
